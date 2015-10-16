@@ -24,17 +24,28 @@
                     <p class="pull-right">Menu <i class="fa fa-bars"></i></p>
                 </div>
             </div>
-            <ul>
-                <li><a href="#">Página Inicial</a></li>
-                <li><a href="#">Quem Somos</a></li>
-                <li><a href="#">Perfil</a></li>
-                <li><a href="#">Social</a></li>
-                <li><a href="#">Dicas</a></li>
-                <li><a href="#">Entrevistas</a></li>
-                <li><a href="#">Reportagens</a></li>
-                <li><a href="#">Blog</a></li>
-                <li><a href="#">Guia</a></li>
-            </ul>
+
+            <?php
+                $defaults = array(
+                    'menu'            => 'menu_topo',
+                    'container'       => 'div',
+                    'container_class' => '',
+                    'container_id'    => '',
+                    'menu_class'      => 'menu',
+                    'menu_id'         => '',
+                    'echo'            => true,
+                    'fallback_cb'     => 'wp_page_menu',
+                    'before'          => '',
+                    'after'           => '',
+                    'link_before'     => '',
+                    'link_after'      => '',
+                    'items_wrap'      => '<ul id="%1$s" class="%2$s">%3$s</ul>',
+                    'depth'           => 0,
+                    'walker'          => ''
+                );
+
+                wp_nav_menu( $defaults );
+            ?>
         </div>
     </nav>
     <div class="featured col-xs-12">
