@@ -1,0 +1,21 @@
+.categories
+  h1
+    @extend %h1
+
+    span
+      @extend %h1-span
+
+  ul
+    li
+      padding: 5px 10px
+      display: inline-block
+      margin: 5px
+      background:
+        color: $color-gray-soft
+
+      &:hover
+        background:
+          color: $color-gray
+
+      a
+        font-size: .8em

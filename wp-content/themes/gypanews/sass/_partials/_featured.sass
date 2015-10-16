@@ -1,0 +1,66 @@
+.featured
+  min-height: 35px
+  background:
+    color: $color-gray-soft
+
+  p
+    width: 130px
+    float: left
+    margin:
+      left: 20px
+    color: $color-gray
+    text:
+      transform: uppercase
+    padding: 10px 0
+    background:
+      image: url("../images/arrow-right.png")
+      repeat: no-repeat
+      position-x: 105px
+      position-y: 10px
+
+  ul
+    width: 650px
+    float: left
+    position: absolute
+    padding-left: 145px
+
+    @media #{$xsmall-max}
+      max-width: 100%
+      text-align: center
+      position: relative
+      padding-left: 0
+
+    li
+      font:
+        size: 0.8em
+      width: 100%
+      padding: 10px 0
+
+      a
+        color: $color-primary
+        width: 100%
+        height: 100%
+        display: block
+
+  .buttons
+    float: right
+
+    .prev,
+    .next
+      width: 14px
+      height: 14px
+      float: left
+      cursor: pointer
+      margin: 0 2px
+      padding: 14px 0
+      background:
+        position-y: 10px
+        repeat: no-repeat
+
+    .prev
+      background:
+        image: url("../images/arrow-left.png")
+
+    .next
+      background:
+        image: url("../images/arrow-right.png")

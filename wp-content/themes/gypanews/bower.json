@@ -1,0 +1,12 @@
+{
+  "name": "GypaNews",
+  "version": "1.0.0",
+  "dependencies": {
+    "bootstrap": "~3.3.5",
+    "fontawesome": "~4.4.0",
+    "jquery": "~2.1.4",
+    "lightbox2": "~2.8.1"
+  },
+  "devDependencies": {},
+  "moduleName": "gypaNews"
+}

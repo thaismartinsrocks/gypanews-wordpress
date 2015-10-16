@@ -1,0 +1,103 @@
+footer
+  clear: both
+  background:
+    color: $color-primary
+
+  .newsletter
+    background:
+      color: $color-gray-soft
+    color: $color-primary
+    padding: 10px 0
+    position: relative
+
+    @media #{$xsmall-max}
+      padding: 10px 0 20px 0
+
+    p
+      text:
+        transform: uppercase
+        align: right
+      font:
+        weight: 700
+      margin:
+        top: 15px
+        right: 40px
+
+      @media #{$xsmall-max}
+        text-align: center
+        margin:
+          right: 0
+          bottom: 15px
+
+    input
+      padding: 12px 115px 12px 12px
+      width: 100%
+      border: none
+      outline: none
+      color: $color-gray
+
+    button
+      position: absolute
+      right: 0
+      top: 0
+      border: none
+      padding: 13px 20px
+      background:
+        color: $color-gray
+
+  .menu
+    img
+      width: 60px
+      margin:
+        top: 20px
+        bottom: 20px
+
+    ul
+      margin:
+        top: 30px
+      text-align: center
+
+      @media #{$xsmall-max}
+        margin:
+          top: 10px
+          bottom: 10px
+
+      li
+        display: inline-block
+        padding: 0 10px
+        cursor: pointer
+        border:
+          left: 1px solid rgba(255, 255, 255, .4)
+
+        @media #{$xsmall-max}
+          border: none
+          padding: 7px 5px
+
+        &:first-child
+          border: none
+
+        a
+          color: $color-soft
+          width: 100%
+          height: 100%
+          font:
+            size: .9em
+
+          &:hover
+            color: $color-gray
+
+  .address
+    padding: 10px 0
+    background:
+      color: $color-primary-dark
+
+    p
+      font:
+        size: 0.8em
+      color: $color-soft
+      text:
+        align: center
+
+      a
+        color: $color-gray
+        cursor: pointer

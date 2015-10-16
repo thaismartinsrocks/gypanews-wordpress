@@ -1,0 +1,48 @@
+.comments
+  margin: 20px 0
+  padding: 0
+
+  h2
+    @extend %h2
+
+  ul
+    li
+      width: 100%
+      margin: 20px 0
+      line-height: 1.4em
+
+      .title
+        color: $color-primary
+        margin:
+          bottom: 5px
+        font:
+          size: .8em
+          weight: 700
+
+  form
+    input[type=text],
+    textarea
+      margin: 5px 0
+      padding: 12px
+      width: 100%
+      border: none
+      outline: none
+      background:
+        color: $color-gray-soft
+
+  input[type=submit]
+    width: 120px
+    float: right
+    padding: 10px
+    background:
+      color: $color-primary
+    color: $color-soft
+    border: none
+    text:
+      transform: uppercase
+    font:
+      size: .8em
+
+    &:hover
+      background:
+        color: $color-primary-dark

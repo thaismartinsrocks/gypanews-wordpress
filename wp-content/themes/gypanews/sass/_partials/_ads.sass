@@ -1,0 +1,60 @@
+.ads
+  padding: 0
+  height: 100%
+
+  @media #{$xsmall-max}
+    width: 100%
+
+  ul
+    text-align: center
+
+    li
+      display: block
+
+      .ad
+        margin: 5px 0
+        text-align: center
+        min-height: 100%
+        height: auto
+        padding:
+          right: 0
+
+        @media #{$xsmall-max}
+          padding: 0
+          margin: 0
+
+        a
+          display: block
+
+        img
+          max-width: 100%
+
+          @media #{$xsmall-max}
+            width: 100%
+
+      &.ad-current
+        width: 100%
+        min-height: 100px
+
+        a
+          width: 100%
+          display: block
+
+          img
+            width: 100%
+
+      .ad-border
+        margin: 52px 0
+        padding:
+          top: 20px
+        border:
+          top: 1px solid $color-primary
+
+        @media #{$xsmall-max}
+          margin: 0
+          padding: 0
+          border: 0
+
+.ads-double
+  li.ad-current
+    min-height: 200px !important
