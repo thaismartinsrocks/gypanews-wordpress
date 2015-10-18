@@ -22,7 +22,7 @@ define('DB_NAME', 'gypanews');
 define('DB_USER', 'root');
 
 /** Senha do banco de dados MySQL */
-define('DB_PASSWORD', 'root');
+define('DB_PASSWORD', '');
 
 /** nome do host do MySQL */
 define('DB_HOST', 'localhost');
@@ -42,14 +42,14 @@ define('DB_COLLATE', '');
  *
  * @since 2.6.0
  */
-define('AUTH_KEY',         '6K@QN?~@:.2>VRudlaA65-fU&5XJhJJ&3E8eg7yP>;UR%O^[4tpLy7f5qf]}kYzL');
-define('SECURE_AUTH_KEY',  ')yX]TfT[K^m.}s:&P|--|5Vi-47d+l:/*CqD?@s<Toy>!pspO9p8oi7f-p;h<Nl*');
-define('LOGGED_IN_KEY',    'V}OG9h&|ZcUfoo+K+tqJd6W=.g$V*`1]ps<+ds+l`c]jpeC8d7KDirjf=N}TM{AH');
-define('NONCE_KEY',        'H`T|4^qI(b&5s`2EUvE|H0Ti5-B|Z2G*.=-/`|BQr_Hu>c+OPA<2 dX|rD!+/2#b');
-define('AUTH_SALT',        '$ C^XLE-NDN#<!xSMn6;Zd;BC 6kB{j*E88^H pwAj~U-%nYc+$8}qmm6ZGe+iwX');
-define('SECURE_AUTH_SALT', 'RT)pDtmLSl0nHN>=@lQfGNRZ]CX$tH:}(5XdL+ukh|#Fle|@rsa[k/p-aMARqa>L');
-define('LOGGED_IN_SALT',   '.Q_hU2:%+D4i&28mt]RJv%f`)< %4+@R&.PaWEt]SKknac?x-A R!{V<X:VM+S5K');
-define('NONCE_SALT',       'AqkmCLgT3t-|`M2`I$BjmqH$Gzkv{S.{f89&]9?Kpr%t6TA2z2buoo^ZgL>(?0Mo');
+define('AUTH_KEY',         'AJ/^]pM|j-U+]@i:Rr5w+>:|Jd@tSmYNVRWrL?bQh|#Z5ew<R5J|OF,BVSuje<SO');
+define('SECURE_AUTH_KEY',  'SMSWMk/oeeK0?kJBPzHd[WT2UW3Z_Y=/Y6Z-h!+<IL~hht:8JfFML{u|]z(Xpa^#');
+define('LOGGED_IN_KEY',    'pwKP=R$gbLX[6_B-X<D&i]a~Cb-Pz:1Soo%4(g;-NJGi+Qq%,rt=}VZAders !^U');
+define('NONCE_KEY',        'mooCZ }v~)Rh*=?Lt33,u#E^LM-X{{=`v[:`Jl  moCq:a7_..cU9&s9&z)8y-[I');
+define('AUTH_SALT',        '_sl3&:<I-S-E!OQOk!I^]RIgL-c%Aig_+GDJN?6uq)a-wm7@;%p?9|{~!@$N{{j,');
+define('SECURE_AUTH_SALT', 'C?3:)Q++mE_1J:Cm$=7+q&T6?.J^I|ZYOXdP/v; >U!psTq-&bb/~.W*5`Cuqh.+');
+define('LOGGED_IN_SALT',   'g#q(-b()9x@*M];-OtC>35[; ~xzDc!.9W_&rl=a-wNj<#K>apB,M1;r}Bx}LR+T');
+define('NONCE_SALT',       '*||J])/S+4C2HfJ(DX9hgjpt e,[Pnk1qD4IP)gFXS r=+$~Qe%]_F$_U87yaO*|');
 
 /**#@-*/
 
@@ -59,7 +59,7 @@ define('NONCE_SALT',       'AqkmCLgT3t-|`M2`I$BjmqH$Gzkv{S.{f89&]9?Kpr%t6TA2z2bu
  * Você pode ter várias instalações em um único banco de dados se você der para cada um um único
  * prefixo. Somente números, letras e sublinhados!
  */
-$table_prefix  = 'wp_';
+$table_prefix  = 'wp_gypa_';
 
 
 /**

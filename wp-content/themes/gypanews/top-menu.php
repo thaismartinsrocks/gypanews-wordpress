@@ -26,6 +26,8 @@
             </div>
 
             <?php
+
+                $custom_posts = get_custom_posts_menu();
                 $defaults = array(
                     'menu'            => 'menu_topo',
                     'container'       => 'div',
@@ -39,7 +41,7 @@
                     'after'           => '',
                     'link_before'     => '',
                     'link_after'      => '',
-                    'items_wrap'      => '<ul id="%1$s" class="%2$s">%3$s</ul>',
+                    'items_wrap'      => '<ul id="%1$s" class="%2$s">%3$s ' . $custom_posts . '</ul>',
                     'depth'           => 0,
                     'walker'          => ''
                 );
