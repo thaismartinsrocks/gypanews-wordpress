@@ -8,6 +8,7 @@
                 wp_list_comments( array(
                     'callback' => 'custom_comment',
                     'avatar_size' => 100,
+                    'reverse_top_level' => false
                 ));
             ?>
         </ul>
@@ -17,16 +18,12 @@
     $args = array(
         'fields' => apply_filters(
             'comment_form_default_fields', array(
-                'author' =>'<p class="comment-form-author">' . '<input id="author" placeholder="Seu Nome*" name="author" type="text" value="' .
-                    esc_attr( $commenter['comment_author'] ) . '" size="30"' . $aria_req . ' />'.
-                    '</p>'
-            ,
-                'email'  => '<p class="comment-form-email">' . '<input id="email" placeholder="Seu Email*" name="email" type="text" value="' . esc_attr(  $commenter['comment_author_email'] ) .
-                    '" size="30"' . $aria_req . ' />'  .
-                    '</p>',
-                'url'    => '<p class="comment-form-url">' .
-                    '<input id="url" name="url" placeholder="Seu Site" type="text" value="' . esc_attr( $commenter['comment_author_url'] ) . '" size="30" /> ' .
-                    '</p>'
+                'author' => '<input id="author" placeholder="Seu Nome*" name="author" type="text" value="' .
+                    esc_attr( $commenter['comment_author'] ) . '" size="30"  />',
+                'email'  => '<input id="email" placeholder="Seu Email*" name="email" type="text" value="' .
+                    esc_attr(  $commenter['comment_author_email'] ) . '" size="30" />',
+                'url'    => '<input id="url" name="url" placeholder="Seu Site" type="text" value="' .
+                    esc_attr( $commenter['comment_author_url'] ) . '" size="30" />'
             )
         ),
         'comment_field' => '<p class="comment-form-comment">' .

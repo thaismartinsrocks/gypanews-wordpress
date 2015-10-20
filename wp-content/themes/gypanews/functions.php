@@ -1,15 +1,11 @@
 <?php
 
 include("components/custom_post_types.php");
+include("components/profile.php");
 
+add_filter('pre_get_posts', 'query_post_type');
 add_filter( 'excerpt_length', 'get_excerpt_theme', 999 );
-
 add_action( 'admin_menu', 'remove_menus' );
-
-add_action( 'personal_options_update', 'save_profile_fields' );
-add_action( 'edit_user_profile_update', 'save_profile_fields' );
-add_action( 'show_user_profile', 'add_profile_fields' );
-add_action( 'edit_user_profile', 'add_profile_fields' );
 
 function get_excerpt_theme($string, $length = 100) {
 
@@ -35,17 +31,21 @@ function get_custom_posts_menu (){
         foreach($customs as $custom) {
             $obj = get_post_type_object($custom);
             $link = get_post_type_archive_link($custom);
-            $custom_posts .= '<li><a href="' . $link . '">' . $obj->labels->singular_name . '</a></li>';
+            $custom_posts .= '<li><a href="' . $link . '">' . $obj->labels->name . '</a></li>';
         }
     }
 
     return $custom_posts;
 }
 
-function get_all_custom_posts() {
+function get_all_custom_posts($isMenu = false) {
 
     $customs = get_post_types('', 'names');
-    $removed = array('post', 'page', 'attachment', 'revision', 'nav_menu_item');
+    $removed = array('post', 'page', 'attachment', 'revision', 'acf', 'anuncios');
+
+    if(!$isMenu)
+        $removed[] = 'nav_menu_item';
+
     $custom_posts = array();
 
     if($customs) {
@@ -80,51 +80,60 @@ function custom_comment($commentObj, $args, $depth) {
     echo $comment;
 }
 
-function add_profile_fields( $user ) {
 
-    $return = '<h3>Redes Sociais</h3>';
-    $return .= '<table class="form-table">';
+function get_pagination() {
 
-    $return .= '<tr>';
-    $return .= '<th><label for="twitter">Twitter</label></th>';
-    $return .= '<td>';
-    $return .= '<input type="text" name="twitter" id="twitter" value="'. esc_attr( get_the_author_meta( 'twitter', $user->ID ) ) . '" class="regular-text" /><br />';
-    $return .= '</td>';
-    $return .= '</tr>';
+    $prev_arrow = is_rtl() ? 'Próximo <i class="fa fa-angle-double-right"></i>' : '<i class="fa fa-angle-double-left"></i> Anterior';
+    $next_arrow = is_rtl() ? '<i class="fa fa-angle-double-left"></i> Anterior' : 'Próximo <i class="fa fa-angle-double-right"></i>';
 
-    $return .= '<tr>';
-    $return .= '<th><label for="facebook">Facebook</label></th>';
-    $return .= '<td>';
-    $return .= '<input type="text" name="facebook" id="facebook" value="'. esc_attr( get_the_author_meta( 'facebook', $user->ID ) ) . '" class="regular-text" /><br />';
-    $return .= '</td>';
-    $return .= '</tr>';
+    global $wp_query;
+    $total = $wp_query->max_num_pages;
+    $big = 999999999; // need an unlikely integer
 
-    $return .= '<tr>';
-    $return .= '<th><label for="instagram">Instagram</label></th>';
-    $return .= '<td>';
-    $return .= '<input type="text" name="instagram" id="instagram" value="'. esc_attr( get_the_author_meta( 'instagram', $user->ID ) ) . '" class="regular-text" /><br />';
-    $return .= '</td>';
-    $return .= '</tr>';
+    if( $total > 1 )  {
 
-    $return .= '<tr>';
-    $return .= '<th><label for="linkedin">Linkedin</label></th>';
-    $return .= '<td>';
-    $return .= '<input type="text" name="linkedin" id="linkedin" value="'. esc_attr( get_the_author_meta( 'linkedin', $user->ID ) ) . '" class="regular-text" /><br />';
-    $return .= '</td>';
-    $return .= '</tr>';
+        if(get_option('permalink_structure'))
+            $format = 'page/%#%/';
+        else
+            $format = '&paged=%#%';
 
-    $return .= '</table>';
-
-    echo $return;
+        echo paginate_links(array(
+            'base'			=> str_replace( $big, '%#%', esc_url( get_pagenum_link( $big ) ) ),
+            'format'		=> $format,
+            'current'		=> max( 1, get_query_var('paged') ),
+            'total' 		=> $total,
+            'mid_size'		=> 3,
+            'type' 			=> 'list',
+            'prev_text'		=> $prev_arrow,
+            'next_text'		=> $next_arrow,
+        ) );
+    }
 }
 
-function save_profile_fields( $user_id ) {
+function _dump_files() {
+    add_action( 'all', create_function( '', "echo '<pre>'; print_r( get_included_files() ); echo '</pre>'; return;" ) );
+}
 
-    if ( !current_user_can( 'edit_user', $user_id ) )
-        return false;
+function query_post_type($query) {
 
-    update_metadata ( 'user', $user_id, 'twitter', $_POST['twitter'] );
-    update_metadata ( 'user', $user_id, 'facebook', $_POST['facebook'] );
-    update_metadata ( 'user', $user_id, 'instagram', $_POST['instagram'] );
-    update_metadata ( 'user', $user_id, 'linkedin', $_POST['linkedin'] );
+    if(is_category() || is_tag()) {
+
+        $post_type = get_query_var('post_type');
+
+        if($post_type)
+            $post_type = $post_type;
+        else {
+            $post_type = get_all_custom_posts();
+        }
+
+        $query->set('post_type', $post_type);
+        return $query;
+    }
+}
+
+function wp_page_menu_theme($defaults) {
+    global $wp_query;
+    $wp_query->set('post_type', get_all_custom_posts(true));
+    wp_nav_menu( $defaults );
+    $wp_query->set('post_type', get_all_custom_posts());
 }

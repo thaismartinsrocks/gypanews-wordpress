@@ -2,6 +2,7 @@
 
 add_action( 'init', 'add_custom_post_types' );
 add_action( 'init', 'add_edition_taxonomy' );
+add_action( 'pre_get_posts', 'custom_post_author_archive' );
 
 function add_custom_post_types() {
 
@@ -28,7 +29,7 @@ function add_custom_post_types() {
             'public' => true,
             'menu_position' => 3,
             'has_archive' => true,
-            'supports' => array( 'title', 'editor', 'author', 'thumbnail', 'excerpt', 'comments' )
+            'supports' => array( 'title', 'editor', 'author', 'excerpt', 'comments', 'thumbnail', 'post-thumbnails' )
         )
     );
 
@@ -77,7 +78,7 @@ function add_custom_post_types() {
     register_post_type( 'blog',
         array(
             'labels' => array(
-                'name' => __( 'Blog' ),
+                'name' => __( 'Blogs' ),
                 'singular_name' => __( 'Blog' )
             ),
             'taxonomies' => array('category'),
@@ -101,6 +102,21 @@ function add_custom_post_types() {
             'supports' => array( 'title', 'editor', 'author', 'thumbnail', 'excerpt', 'comments' )
         )
     );
+
+    register_post_type( 'anuncios',
+        array(
+            'labels' => array(
+                'name' => __( 'Anúncios' ),
+                'singular_name' => __( 'Anúncio' )
+            ),
+            'public' => true,
+            'menu_position' => 9,
+            'has_archive' => true,
+            'supports' => array( 'title' )
+        )
+    );
+
+    add_theme_support('post-thumbnails');
 }
 
 function add_edition_taxonomy() {
@@ -130,4 +146,11 @@ function add_edition_taxonomy() {
              'rewrite' => array( 'slug' => 'edicoes' )
         )
      );
+}
+
+function custom_post_author_archive( &$query ) {
+    if ( $query->is_author )
+        $query->set( 'post_type', get_all_custom_posts());
+
+    remove_action( 'pre_get_posts', 'custom_post_author_archive' ); // run once!
 }

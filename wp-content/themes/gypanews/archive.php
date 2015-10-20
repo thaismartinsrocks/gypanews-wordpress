@@ -28,7 +28,9 @@
                         <div class="col-xs-12">
                            <?php $category = get_the_category() ?>
                             <a href="<?php the_permalink() ?>">
-                                <p class="category"><?php echo $category[0]->name; ?></p>
+                                <?php if($category) { ?>
+                                    <p class="category"><?php echo $category[0]->name; ?></p>
+                                <?php } ?>
                                 <h2><?php the_title(); ?></h2>
                                 <p><?php echo get_excerpt_theme(get_the_excerpt()); ?></p>
                             </a>
@@ -39,16 +41,13 @@
         <?php else: ?>
             <p class="text-center" style="margin: 100px 0">Nenhum conteúdo cadastrado até o momento.</p>
         <?php endif; ?>
+
         <div class="buttons col-xs-12">
-            <ul>
-                <li>
-                    <a href="#"><i class="fa fa-angle-double-left"></i> Anterior</a>
-                </li>
-                <li>
-                    <a href="#">Próximo <i class="fa fa-angle-double-right"></i> </a>
-                </li>
-            </ul>
+            <?php get_pagination(); ?>
         </div>
+
+        <?php wp_reset_postdata(); ?>
+        <?php wp_reset_query(); ?>
     </div>
 </div>
 <?php get_footer(); ?>

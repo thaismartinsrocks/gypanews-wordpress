@@ -190,18 +190,20 @@
         display: inline-block
         width: 49%
         vertical-align: middle
+        min-height: 50px
 
         @media #{$xsmall-max}
           padding: 0
 
-        a
-          i
-            margin: 0 5px
-            font-size: 1.8em
-            width: 15px
+        p
+          display: inline-table
+          vertical-align: middle
 
-          &:hover
-            color: $color-primary-dark
+          a
+            i
+              margin: 0 5px
+              font-size: 1.8em
+              width: 15px
 
-          p
-            width: 78%
+            &:hover
+              color: $color-primary-dark

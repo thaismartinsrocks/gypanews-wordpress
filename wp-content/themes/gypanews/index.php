@@ -99,16 +99,41 @@
         </section>
 
         <div class="ads paddingtop col-xs-12 col-sm-4">
+
+            <?php
+                $args = array(
+                    'posts_per_page'   => 5,
+                    'offset'           => 0,
+                    'post_status'      => 'publish',
+                    'post_type'        => 'anuncios',
+                    'meta_query'       => array(
+                                            array(
+                                                    'key' => 'local',
+                                                    'value' => 'home_aside'
+                                            )
+                                          ),
+                    'meta_key'         => 'order_exibition',
+                    'orderby'          => 'meta_value_num',
+                    'order'            => 'DESC',
+                );
+
+                query_posts($args);
+            ?>
             <ul>
-                <?php for($i = 1; $i < 6; $i++){ ?>
-                    <li>
-                        <div class="ad col-xs-12 col-sm-12">
-                            <a href="#" target="_blank">
-                                <img src="http://placehold.it/320x100?text=Anuncio+<?php echo $i ?>" alt="Anuncie Aqui" title="Anuncie Aqui">
-                            </a>
-                        </div>
-                    </li>
-                <?php } ?>
+                <?php if ( have_posts() ) : ?>
+                    <?php while (have_posts()) : the_post(); ?>
+                        <?php $image = get_field('image'); ?>
+                        <li>
+                            <div class="ad col-xs-12 col-sm-12">
+                                <a href="<?php the_field('url'); ?>" target="_blank">
+                                    <img src="<?php echo $image['url']; ?>" alt="<?php the_title(); ?>" title="<?php the_title(); ?>">
+                                </a>
+                            </div>
+                        </li>
+                    <?php endwhile; ?>
+                <?php endif; ?>
+                <?php wp_reset_postdata(); ?>
+                <?php wp_reset_query(); ?>
             </ul>
         </div>
     </div>
@@ -116,16 +141,40 @@
 
 <div class="ads col-xs-12">
     <div class="container">
+        <?php
+            $args = array(
+                'posts_per_page'   => 3,
+                'offset'           => 0,
+                'post_status'      => 'publish',
+                'post_type'        => 'anuncios',
+                'meta_query'       => array(
+                    array(
+                        'key' => 'local',
+                        'value' => 'home_center'
+                    )
+                ),
+                'meta_key'         => 'order_exibition',
+                'orderby'          => 'meta_value_num',
+                'order'            => 'DESC',
+            );
+
+            query_posts($args);
+        ?>
         <ul>
-            <?php for($i = 1; $i < 4; $i++){ ?>
-                <li>
-                    <div class="ad col-xs-12 col-sm-4">
-                        <a href="#" target="_blank">
-                            <img src="http://placehold.it/320x100?text=Anuncio+<?php echo $i ?>" alt="Anuncie Aqui" title="Anuncie Aqui">
-                        </a>
-                    </div>
-                </li>
-            <?php } ?>
+            <?php if ( have_posts() ) : ?>
+                <?php while (have_posts()) : the_post(); ?>
+                    <?php $image = get_field('image'); ?>
+                    <li>
+                        <div class="ad col-xs-12 col-sm-4">
+                            <a href="<?php the_field('url'); ?>" target="_blank">
+                                <img src="<?php echo $image['url']; ?>" alt="<?php the_title(); ?>" title="<?php the_title(); ?>">
+                            </a>
+                        </div>
+                    </li>
+                <?php endwhile; ?>
+            <?php endif; ?>
+            <?php wp_reset_postdata(); ?>
+            <?php wp_reset_query(); ?>
         </ul>
     </div>
 </div>
@@ -133,16 +182,40 @@
 <div class="interviews col-xs-12">
     <div class="container">
         <div class="ads ads-double">
+            <?php
+            $args = array(
+                'posts_per_page'   => 2,
+                'offset'           => 0,
+                'post_status'      => 'publish',
+                'post_type'        => 'anuncios',
+                'meta_query'       => array(
+                    array(
+                        'key' => 'local',
+                        'value' => 'home_bottom'
+                    )
+                ),
+                'meta_key'         => 'order_exibition',
+                'orderby'          => 'meta_value_num',
+                'order'            => 'DESC',
+            );
+
+            query_posts($args);
+            ?>
             <ul>
-                <?php for($i = 1; $i < 3; $i++){ ?>
-                    <li>
-                        <div class="ad ad-border col-xs-12 col-sm-4">
-                            <a href="#" target="_blank">
-                                <img src="http://placehold.it/320x200?text=Anuncio+<?php echo $i ?>" alt="Anuncie Aqui" title="Anuncie Aqui">
-                            </a>
-                        </div>
-                    </li>
-                <?php } ?>
+                <?php if ( have_posts() ) : ?>
+                    <?php while (have_posts()) : the_post(); ?>
+                        <?php $image = get_field('image'); ?>
+                        <li>
+                            <div class="ad ad-border col-xs-12 col-sm-4">
+                                <a href="<?php the_field('url'); ?>" target="_blank">
+                                    <img src="<?php echo $image['url']; ?>" alt="<?php the_title(); ?>" title="<?php the_title(); ?>">
+                                </a>
+                            </div>
+                        </li>
+                    <?php endwhile; ?>
+                <?php endif; ?>
+                <?php wp_reset_postdata(); ?>
+                <?php wp_reset_query(); ?>
             </ul>
         </div>
 

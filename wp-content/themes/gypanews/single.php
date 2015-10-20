@@ -3,17 +3,19 @@
 
     <?php get_template_part('aside'); ?>
 
-    <?php while ( have_posts() ) : the_post(); ?>
+    <?php if (have_posts()) : while (have_posts()) : the_post(); ?>
         <article class="article col-xs-12 col-sm-8">
-            <div class="col-xs-12">
-                <?php $category = get_the_category() ?>
-                <?php if($category) { ?>
-                    <?php $category_link = get_category_link( $category[0]->term_id ); ?>
-                    <a href="<?php echo esc_url( $category_link ); ?>" class="category">
-                        <p><?php echo $category[0]->name; ?></p>
-                    </a>
-                <?php } ?>
-            </div>
+
+            <?php $category = get_the_category() ?>
+            <?php if($category) { ?>
+                <?php $category_link = get_category_link( $category[0]->term_id ); ?>
+                <div class="col-xs-12">
+                        <a href="<?php echo esc_url( $category_link ); ?>" class="category">
+                            <p><?php echo $category[0]->name; ?></p>
+                        </a>
+                </div>
+            <?php } ?>
+
 
             <h1><?php the_title(); ?></h1>
 
@@ -40,18 +42,13 @@
                 </div>
             </div>
             <div class="buttons col-xs-12">
+                <p class="text-center">VEJA TAMBÉM</p>
                 <ul>
                     <li>
-                        <a href="#">
-                            <i class="fa fa-angle-left pull-left"></i>
-                            <p class="pull-right text-left">Post Anterior  Post Anterior Post Anterior Post Anterior</p>
-                        </a>
+                        <?php previous_post_link( '<p class="pull-left text-left"><i class="fa fa-angle-left pull-left"></i> %link</p>' ); ?>
                     </li>
                     <li>
-                        <a href="#">
-                            <p class="pull-left text-right">Próximo Post Próximo Post Próximo Post Próximo Post Próximo Post</p>
-                            <i class="fa fa-angle-right pull-right"></i>
-                        </a>
+                        <?php next_post_link( '<p class="pull-right text-right">%link <i class="fa fa-angle-right pull-right"></i></p>' ); ?>
                     </li>
                 </ul>
             </div>
@@ -103,6 +100,9 @@
             <?php }  ?>
 
         </article>
-    <?php endwhile; ?>
+    <?php  endwhile; endif; ?>
+
+    <?php wp_reset_postdata(); ?>
+    <?php wp_reset_query(); ?>
 </div>
 <?php get_footer(); ?>
