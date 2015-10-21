@@ -45,7 +45,6 @@ function get_all_custom_posts($isMenu = false) {
     $removed = array('post', 'page', 'attachment', 'revision', 'acf', 'anuncios', 'slide', 'newsletter', 'nav_menu_item');
 
     if(!$isMenu) {
-        $removed[] = 'nav_menu_item';
         $removed[] = 'guia';
         $removed[] = 'social';
     }
@@ -123,16 +122,15 @@ function query_post_type($query) {
 
         $post_type = get_query_var('post_type');
 
-        if($post_type)
-            $post_type = $post_type;
-        else {
-            $post_type = get_all_custom_posts();
-            $post_type[] = 'guia';
+        if(!$post_type) {
+            $post_type = get_all_custom_posts(true);
         }
 
         $query->set('post_type', $post_type);
         return $query;
     }
+
+    remove_filter('pre_get_posts', 'query_post_type');
 }
 
 function wp_page_menu_theme($defaults) {

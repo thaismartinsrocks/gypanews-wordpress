@@ -11,7 +11,7 @@
                 <?php $post_type =  get_post_type_object( get_post_type($post) ); ?>
                 <?php if($post_type->name == 'guia') { ?>
                     <article class="guia col-xs-12">
-                        <div class="<?php echo has_post_thumbnail() ? 'col-xs-8' : 'col-xs-12'; ?>">
+                        <div class="col-xs-12">
                             <p><strong><?php the_title() ?></strong></p>
                             <p>Endereço: <?php the_field('local') ?></p>
                             <p>Telefone: <?php the_field('phone') ?></p>
