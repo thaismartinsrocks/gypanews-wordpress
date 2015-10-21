@@ -1,6 +1,6 @@
 .interviews .container .box h1, .news h1, .categories h1 { font-size: 1.4em; font-weight: 700; text-transform: uppercase; color: #495a86; padding: 15px 0; border-bottom: 1px solid #495a86; margin-bottom: 15px; }
 
-.interviews .container .box h1 span, .news h1 span, .article h1 span, .page h1 span, .categories h1 span { padding: 10px 8px; border-bottom: 3px solid #495a86; }
+.interviews .container .box h1 span, .news h1 span, .article h1 span, .categories h1 span { padding: 10px 8px; border-bottom: 3px solid #495a86; }
 
 .interviews .container .box article h2, .news article .content a h2, .comments h2 { color: #495a86; margin: 8px 0; font-weight: 700; font-size: 1.2em; }
 
@@ -113,8 +113,8 @@ header nav ul li a { width: 100%; height: 100%; padding: 14px 18px; display: blo
 
 .author { padding: 10px 10px 10px 10px; position: relative; min-height: 165px; background-color: #f6f6f6; }
 .author .image { margin-top: 10px; }
-.author h2 { color: #495a86; margin: 10px 0; font-weight: 700; }
-.author p { font-size: 0.8em; line-height: 1.4em; padding-right: 20px; }
+.author h2 { color: #495a86; margin: 10px 0; font-weight: 700; font-size: 1.2em; text-transform: uppercase; }
+.author p { font-size: 0.9em; line-height: 1.6em; letter-spacing: 0.05em; padding-right: 20px; }
 .author ul { position: absolute; right: 0; top: 0; }
 .author ul li { text-align: center; margin: 3px 0; background-color: #b1b6c9; }
 .author ul li a { padding: 5px; display: block; width: 100%; height: 100%; }
@@ -132,9 +132,9 @@ header nav ul li a { width: 100%; height: 100%; padding: 14px 18px; display: blo
 .news article { padding-top: 5px; padding-bottom: 3px; padding-right: 5px; padding-left: 5px; margin-bottom: 15px; }
 @media (max-width: 767px) { .news article { border-bottom: 1px solid #b1b6c9; padding-top: 5px; padding-bottom: 13px; margin: 0; } }
 .news article:hover { background-color: #f6f6f6; }
-.news article.first { min-height: 420px; }
+.news article.first { min-height: 446px; }
 @media (max-width: 767px) { .news article.first { min-height: 100%; } }
-.news article .image { padding: 0; }
+.news article .image { padding: 0; margin-top: 3px; }
 @media (max-width: 767px) { .news article .image { padding-top: 10px; } }
 .news article .image p { position: absolute; bottom: 20px; padding: 4px 6px; color: #fff; background-color: #495a86; font-size: 0.7em; }
 @media (max-width: 767px) { .news article .image p { display: none; } }
@@ -142,8 +142,8 @@ header nav ul li a { width: 100%; height: 100%; padding: 14px 18px; display: blo
 .news article .content { padding: 0 5px; }
 .news article .content .small { padding: 5px 0; font-size: 0.6em; color: #b1b6c9; }
 .news article .content .small a { color: #b1b6c9; font-weight: 700; }
-.news article .content a p { color: #898989; }
-.news article .content a p.category { font-size: 0.8em; color: #b1b6c9; }
+.news article .content a p { color: #898989; line-height: 1.2em; }
+.news article .content a p.category { font-size: 0.8em; color: #b1b6c9; text-transform: uppercase; }
 .news article .content .resume { padding: 0; }
 .news .buttons { margin: 10px 0; padding: 10px 0; border-top: 1px solid #f6f6f6; }
 .news .buttons ul { text-align: center; }
@@ -154,7 +154,7 @@ header nav ul li a { width: 100%; height: 100%; padding: 14px 18px; display: blo
 .article { padding-top: 5px; padding-bottom: 3px; padding-right: 5px; padding-left: 5px; margin-bottom: 15px; margin-top: 35px; }
 @media (max-width: 767px) { .article { margin-top: 0; } }
 .article .category { color: #b1b6c9; text-align: center; margin: 10px 0; display: block; text-transform: uppercase; }
-.article h1 { text-align: center; color: #495a86; font-size: 2em; font-weight: 700; }
+.article h1 { text-align: center; color: #495a86; width: 80%; margin: 0 auto; font-size: 2em; font-weight: 700; }
 .article .image { padding: 0; margin-bottom: 10px; }
 .article .image p { position: absolute; bottom: 40px; padding: 8px 12px; color: #fff; background-color: #495a86; font-size: 1.2em; font-weight: 700; }
 @media (max-width: 767px) { .article .image p { display: none; } }
@@ -166,11 +166,15 @@ header nav ul li a { width: 100%; height: 100%; padding: 14px 18px; display: blo
 .article .content ul.share { width: 40px; position: absolute; text-align: center; margin-top: 20px; }
 @media (max-width: 767px) { .article .content ul.share { width: 100%; position: relative; margin: 0; } }
 .article .content ul.share li { margin: 5px 0; background-color: #495a86; }
-@media (max-width: 767px) { .article .content ul.share li { display: inline-block; margin: 5px; padding: 5px 10px; } }
-.article .content ul.share li a { color: #fff; width: 100%; height: 100%; display: block; padding: 5px 0; }
+@media (max-width: 767px) { .article .content ul.share li { display: inline-block; margin: 5px; } }
+.article .content ul.share li a { color: #fff; width: 100%; height: 100%; display: block; padding: 5px 15px; }
 .article .content ul.share li a i { font-size: 0.8em; }
 .article .content .text { padding-left: 55px; clear: both; }
 @media (max-width: 767px) { .article .content .text { padding-left: 0; } }
+.article .content .text strong, .article .content .text b { font-weight: 700; }
+.article .content .text em, .article .content .text i { font-style: italic; }
+.article .content .text .alignleft { float: left; margin: 15px 15px 0 15px; }
+.article .content .text .alignleft p { padding: 0; margin: 0 0 15px 0; text-align: center; font-style: italic; font-size: 0.8em; }
 .article .content .text blockquote { margin: 30px auto; text-align: center; font-size: 1.4em; width: 80%; font-style: italic; color: #495a86; }
 @media (max-width: 767px) { .article .content .text blockquote { font-size: 1em; } }
 .article .content .text blockquote.left { padding-left: 20px; margin-right: 30px; border-left: 1px solid #495a86; width: 40%; float: left; }
@@ -191,7 +195,8 @@ header nav ul li a { width: 100%; height: 100%; padding: 14px 18px; display: blo
 
 .page { padding-top: 5px; padding-bottom: 3px; padding-right: 5px; padding-left: 5px; margin-bottom: 15px; margin-top: 35px; }
 @media (max-width: 767px) { .page { margin-top: 0; } }
-.page h1 { text-align: center; color: #495a86; font-size: 2em; font-weight: 700; margin: 30px 0; }
+.page h1 { text-align: center; color: #495a86; width: 80%; margin: 0 auto; font-size: 2em; font-weight: 700; }
+.page .title p { text-align: center; text-transform: uppercase; margin: 10px 0; color: #b1b6c9; }
 .page .image { padding: 0; margin-bottom: 10px; }
 .page .image p { position: absolute; bottom: 40px; padding: 8px 12px; color: #fff; background-color: #495a86; font-size: 1.2em; font-weight: 700; }
 @media (max-width: 767px) { .page .image p { display: none; } }
@@ -216,9 +221,17 @@ header nav ul li a { width: 100%; height: 100%; padding: 14px 18px; display: blo
 .comments input[type=submit] { width: 150px; float: right; padding: 10px; background-color: #495a86; color: #fff; border: none; text-transform: uppercase; font-size: 0.8em; }
 .comments input[type=submit]:hover { background-color: #202658; }
 
+.categories { padding: 0; }
 .categories ul li { padding: 5px 10px; display: inline-block; margin: 5px; background-color: #f6f6f6; }
 .categories ul li:hover { background-color: #b1b6c9; }
 .categories ul li a { font-size: 0.8em; }
+
+.category-box { padding: 0; margin: 10px 0; }
+.category-box .image { position: relative; background-color: #495a86; }
+.category-box .image p { position: absolute; bottom: 25px; background-color: #495a86; color: #fff; padding: 10px 15px; text-transform: uppercase; font-weight: 700; }
+@media (max-width: 767px) { .category-box .image p { position: relative; text-align: center; bottom: 0; } }
+.category-box .image img { opacity: 0.8; width: 100%; }
+.category-box p { padding: 10px; line-height: 1.6em; }
 
 .ads { padding: 0; height: 100%; }
 @media (max-width: 767px) { .ads { width: 100%; } }

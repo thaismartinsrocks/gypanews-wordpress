@@ -7,7 +7,7 @@ add_filter('pre_get_posts', 'query_post_type');
 add_filter( 'excerpt_length', 'get_excerpt_theme', 999 );
 add_action( 'admin_menu', 'remove_menus' );
 
-function get_excerpt_theme($string, $length = 100) {
+function get_excerpt_theme($string, $length = 130) {
 
     if(strlen($string) < $length)
         return $string;
@@ -41,7 +41,7 @@ function get_custom_posts_menu (){
 function get_all_custom_posts($isMenu = false) {
 
     $customs = get_post_types('', 'names');
-    $removed = array('post', 'page', 'attachment', 'revision', 'acf', 'anuncios');
+    $removed = array('post', 'page', 'attachment', 'revision', 'acf', 'anuncios', 'slide', 'newsletter');
 
     if(!$isMenu)
         $removed[] = 'nav_menu_item';

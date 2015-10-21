@@ -22,6 +22,8 @@
   h1
     text-align: center
     color: $color-primary
+    width: 80%
+    margin: 0 auto
     font:
       size: 2em
       weight: 700
@@ -95,14 +97,13 @@
         @media #{$xsmall-max}
           display: inline-block
           margin: 5px
-          padding: 5px 10px
 
         a
           color: $color-soft
           width: 100%
           height: 100%
           display: block
-          padding: 5px 0
+          padding: 5px 15px
 
           i
             font-size: .8em
@@ -115,6 +116,26 @@
       @media #{$xsmall-max}
         padding:
           left: 0
+
+      strong,
+      b
+        font-weight: 700
+
+      em,
+      i
+        font-style: italic
+
+      .alignleft
+        float: left
+        margin: 15px 15px 0 15px
+
+        p
+          padding: 0
+          margin: 0 0 15px 0
+          text-align: center
+          font:
+            style: italic
+            size: .8em
 
       blockquote
         margin: 30px auto

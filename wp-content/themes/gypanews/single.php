@@ -10,9 +10,9 @@
             <?php if($category) { ?>
                 <?php $category_link = get_category_link( $category[0]->term_id ); ?>
                 <div class="col-xs-12">
-                        <a href="<?php echo esc_url( $category_link ); ?>" class="category">
-                            <p><?php echo $category[0]->name; ?></p>
-                        </a>
+                    <a href="<?php echo esc_url( $category_link ); ?>" class="category">
+                        <p><?php echo $category[0]->name; ?></p>
+                    </a>
                 </div>
             <?php } ?>
 

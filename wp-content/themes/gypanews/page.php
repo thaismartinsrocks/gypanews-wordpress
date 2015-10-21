@@ -5,8 +5,10 @@
     <?php include "aside.php"; ?>
     <?php while ( have_posts() ) : the_post(); ?>
         <article class="page col-xs-12 col-sm-8">
-
-            <h1><?php the_title(); ?></h1>
+            <div class="title col-xs-12">
+                <p>GypaNews</p>
+                <h1><?php the_title(); ?></h1>
+            </div>
 
             <?php  if(has_post_thumbnail()) { ?>
                 <div class="image col-xs-12">

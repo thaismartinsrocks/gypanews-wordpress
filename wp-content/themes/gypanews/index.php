@@ -3,17 +3,43 @@
     <div class="container">
         <div class="slide col-xs-12 col-sm-8">
             <ul>
-                <?php for($i = 1; $i < 4; $i++){ ?>
-                    <li>
-                        <a href="#">
-                            <img src="http://placehold.it/700x320" alt="Destaque" title="Destaque">
-                            <div class="details">
-                                <div class="edition"><?php echo $i; ?>ª Edição</div>
-                                <h1>Lorem ipsum dolor sit amet no his propriae reprimiq</h1>
-                            </div>
-                        </a>
-                    </li>
-                <?php } ?>
+                <?php
+                    $args = array(
+                        'posts_per_page'   => 4,
+                        'offset'           => 0,
+                        'post_status'      => 'publish',
+                        'post_type'        => 'slide',
+                        'orderby'          => 'date',
+                        'order'            => 'DESC',
+                    );
+
+                    query_posts($args);
+                ?>
+
+                <?php if ( have_posts() ) : ?>
+                    <?php while (have_posts()) : the_post(); ?>
+                        <li>
+
+                            <?php $image = get_field('image'); ?>
+                            <?php $post = get_field('go_to'); ?>
+                            <?php $edition = get_the_terms($post->ID, 'edicoes'); ?>
+
+                            <a href="<?php echo get_permalink($post->ID); ?>">
+
+                                <?php if($image) { ?>
+                                    <img src="<?php echo $image['url']; ?>" alt="<?php echo $image['alt'] ?>" title="<?php echo $image['title'] ?>">
+                                <?php } ?>
+
+                                <div class="details">
+                                    <?php if($edition) { ?>
+                                        <div class="edition"><?php echo $edition[0]->name; ?></div>
+                                    <?php } ?>
+                                    <h1><?php echo $post->post_title; ?></h1>
+                                </div>
+                            </a>
+                        </li>
+                    <?php endwhile; ?>
+                <?php endif; ?>
             </ul>
             <div class="buttons">
                 <div class="prev"></div>
@@ -44,55 +70,77 @@
         <section class="nopadding-mobile col-xs-12 col-sm-8">
             <h1><span>Reportagens</span></h1>
 
-            <article class="first col-xs-12 col-sm-6">
-                <div class="image col-xs-12">
-                    <a href="#">
-                        <img src="http://placehold.it/350x230" alt="Noticia" title="Noticia">
-                        <p>3° Edição</p>
-                    </a>
-                </div>
+            <?php
+                $args = array(
+                    'posts_per_page'   => 4,
+                    'offset'           => 0,
+                    'post_status'      => 'publish',
+                    'post_type'        => 'reportagens',
+                    'orderby'          => 'date',
+                    'order'            => 'DESC',
+                );
 
-                <div class="content col-xs-6">
-                    <p class="small">10/05/2015 - Por <a href="#">Ana Claudia</a></p>
-                </div>
-                <div class="content col-xs-6">
-                    <p class="small pull-right"><a href="#"><i class="fa fa-comments-o"></i> 1 comentário</a></p>
-                </div>
+                query_posts($args);
+            ?>
+            <?php $count = 1; ?>
+            <?php if ( have_posts() ) : ?>
+                <?php while (have_posts()) : the_post(); ?>
 
-                <div class="content col-xs-12">
-                    <a href="#">
-                        <h2>Teste de Título</h2>
-                        <p>Lorem ipsum dolor sit amet, ius semper quaeque an. Eam te meis elitr, quis reprimique omittantur has cu, everti sapientem et vis.</p>
-                    </a>
-                </div>
-            </article>
+                    <article class="<?php echo $count == 1 ? 'first' : '' ?> col-xs-12 col-sm-6">
 
-            <?php for($i = 1; $i < 4; $i++){ ?>
-                <article class="col-xs-12 col-sm-6">
-                    <div class="image col-sm-4 hidden-xs">
-                        <a href="#">
-                            <img src="http://placehold.it/100x100" alt="Noticia" title="Noticia">
-                            <p>3° Edição</p>
-                        </a>
-                    </div>
-                    <div class="content col-sm-8 col-xs-12">
-                        <div class="small col-xs-12">
-                            <p>10/05/2015 - Por <a href="#">Ana Claudia</a></p>
-                        </div>
-                        <div class="resume col-xs-12">
-                            <a href="#">
-                                <h2>Teste de Título</h2>
-                                <p>Lorem ipsum dolor sit amet, ius semper quaeque an. Eam te meis... </p>
-                            </a>
-                        </div>
-                        <div class="small col-xs-12">
-                            <p class="pull-right"><a href="#"><i class="fa fa-comments-o"></i> 1 comentário</a></p>
-                        </div>
-                    </div>
-                </article>
-            <?php } ?>
+                        <?php  if(has_post_thumbnail()) { ?>
+                            <div class="image col-xs-12">
+                                <a href="<?php the_permalink(); ?>">
+                                    <?php the_post_thumbnail(); ?>
+                                    <p><?php echo get_edition(); ?></p>
+                                </a>
+                            </div>
+                        <?php } ?>
+
+                        <?php if($count == 1) { ?>
+                            <div class="content col-xs-6">
+                                <p class="small"><?php the_time('d/m/Y') ?> - Por <?php the_author_posts_link(); ?></p>
+                            </div>
+                            <div class="content col-xs-6">
+                                <p class="small pull-right">
+                                    <a href="<?php the_permalink(); ?>#comments">
+                                        <i class="fa fa-comments-o"></i> <?php echo get_comments_number() ?> comentário
+                                    </a>
+                                </p>
+                            </div>
+
+                            <div class="content col-xs-12">
+                                <a href="<?php the_permalink(); ?>">
+                                    <h2><?php the_title(); ?></h2>
+                                    <p><?php echo get_excerpt_theme(get_the_excerpt()); ?></p>
+                                </a>
+                            </div>
+                        <?php } else { ?>
+                            <div class="content col-sm-8 col-xs-12">
+                                <div class="small col-xs-12">
+                                    <p><?php the_time('d/m/Y') ?> - Por <?php the_author_posts_link(); ?></p>
+                                </div>
+                                <div class="resume col-xs-12">
+                                    <a href="<?php the_permalink(); ?>">
+                                        <h2><?php the_title(); ?></h2>
+                                        <p><?php echo get_excerpt_theme(get_the_excerpt()); ?></p>
+                                    </a>
+                                </div>
+                                <div class="small col-xs-12">
+                                    <p class="pull-right">
+                                        <a href="<?php the_permalink(); ?>$comments">
+                                            <i class="fa fa-comments-o"></i> <?php echo get_comments_number() ?> comentário
+                                        </a>
+                                    </p>
+                                </div>
+                            </div>
+                        <?php } ?>
+                    </article>
+                    <?php $count++; ?>
+                <?php endwhile; ?>
+            <?php endif; ?>
             <div class="more col-xs-12">
-                <a href="#">
+                <a href="<?php bloginfo('url'); ?>/reportagens">
                     <p>Mais Reportagens <i class="fa fa-angle-double-right"></i></p>
                 </a>
             </div>
@@ -221,21 +269,42 @@
 
         <div class="box col-xs-12 col-sm-4">
             <h1><span>Entrevistas</span></h1>
-            <?php for($i = 1; $i < 3; $i++){ ?>
-                <article class="row">
-                    <div class="col-sm-4 hidden-xs">
-                        <img src="http://placehold.it/100x100" alt="Entrevistado" title="Entrevistado">
-                    </div>
-                    <div class="col-xs-12 col-sm-8">
-                        <h2>Nome do entrevistado</h2>
-                        <p>Lorem ipsum dolor sit amet, ius semper quaeque an. Eam te meis elitr...</p>
-                    </div>
-                </article>
-            <?php } ?>
+
+            <?php
+                $args = array(
+                    'posts_per_page'   => 2,
+                    'offset'           => 0,
+                    'post_status'      => 'publish',
+                    'post_type'        => 'entrevistas',
+                    'orderby'          => 'date',
+                    'order'            => 'DESC',
+                );
+
+                query_posts($args);
+            ?>
+
+            <?php if ( have_posts() ) : ?>
+                <?php while (have_posts()) : the_post(); ?>
+                    <article class="row">
+                        <?php  if(has_post_thumbnail()) { ?>
+                            <div class="col-sm-4 hidden-xs">
+                                <a href="<?php the_permalink(); ?>">
+                                    <?php the_post_thumbnail(); ?>
+                                </a>
+                            </div>
+                        <?php } ?>
+
+                        <div class="col-xs-12 col-sm-8">
+                            <h2><?php the_title(); ?></h2>
+                            <p><?php echo get_excerpt_theme(get_the_excerpt()); ?></p>
+                        </div>
+                    </article>
+                <?php endwhile; ?>
+            <?php endif; ?>
         </div>
 
         <div class="more col-xs-12">
-            <a href="#">
+            <a href="<?php bloginfo('url'); ?>/entrevistas">
                 <p>Mais Entrevistas <i class="fa fa-angle-double-right"></i></p>
             </a>
         </div>

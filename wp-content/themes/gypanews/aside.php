@@ -25,8 +25,10 @@
         </ul>
     </div>
     <div class="news hidden-xs">
-        <h1><span>Últimos Posts</span></h1>
+        <h1><span>Últimos Artigos</span></h1>
         <?php
+
+            global $posts;
 
             $args = array(
                 'posts_per_page'   => 5,
@@ -41,6 +43,8 @@
                 $args['author'] = $wp_query->queried_object->ID;
                 $args['post_type'] = get_all_custom_posts();
             } else if(is_single() || is_archive()) {
+                $args['post_type'] = get_post_type($posts->ID);
+            } else {
                 $args['post_type'] = get_query_var('post_type');
             }
             query_posts($args);
@@ -58,9 +62,12 @@
                             <?php $category = get_the_category() ?>
                             <p class="small">
                                 <?php if($category) { ?>
-                                   <?php echo $category[0]->name; ?> |
+                                   <span style="text-transform: uppercase"><?php echo $category[0]->name; ?></span>
                                 <?php } ?>
-                                <?php the_time('d/m/Y') ?> - Por <?php the_author_posts_link() ?></p>
+                            </p>
+                            <p class="small">
+                                <?php the_time('d/m/Y') ?> - Por <?php the_author_posts_link() ?>
+                            </p>
                         </div>
                         <div class="col-xs-12">
                             <a href="<?php the_permalink(); ?>">
@@ -77,7 +84,7 @@
         <?php endif; ?>
         <?php wp_reset_postdata(); ?>
     </div>
-    <div class="categories hidden-xs">
+    <div class="categories col-xs-12 hidden-xs">
         <h1><span>Todas as Categorias</span></h1>
         <ul>
             <?php

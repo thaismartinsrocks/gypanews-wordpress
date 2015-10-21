@@ -8,8 +8,47 @@
         <?php $post_type = get_queried_object(); ?>
         <h1><span><?php echo $post_type->labels->name; ?></span></h1>
 
+        <?php
+            $paged = get_query_var('paged') ? get_query_var('paged') : 1;
+
+            $args = array(
+                'post_type' => $post_type->name,
+                'paged'     => $paged,
+                'orderby'   => 'category',
+                'order'     => 'DESC'
+            );
+
+            query_posts( $args );
+        ?>
+
+        <?php $lastCategory = ''; ?>
         <?php if ( have_posts() ) : ?>
             <?php while ( have_posts() ) : the_post(); ?>
+
+                <?php $category = get_the_category(); ?>
+                <?php if($category && $lastCategory != $category[0]->name) { ?>
+                    <div class="category-box col-xs-12">
+                        <?php
+                            $imageArgs = array(
+                                'size' =>  'full',
+                                'term_id' => $category[0]->term_id
+                            );
+
+                            $image = category_image_src( $imageArgs, false);
+                        ?>
+
+                        <?php if($image) { ?>
+                            <div class="image">
+                                <img src="<?php echo $image ?>" alt="<?php echo $category[0]->name; ?>" title="<?php echo $category[0]->name; ?>">
+                                <p><?php echo $category[0]->name; ?></p>
+                            </div>
+                        <?php } ?>
+
+                        <p><?php echo $category[0]->description; ?></p>
+                        <?php $lastCategory = $category[0]->name; ?>
+                    </div>
+                <?php } ?>
+
                 <article class="col-xs-12">
                     <div class="image col-xs-2">
                         <a href="<?php the_permalink() ?>">
@@ -29,11 +68,8 @@
                             </p>
                         </div>
                         <div class="col-xs-12">
-                           <?php $category = get_the_category() ?>
+
                             <a href="<?php the_permalink() ?>">
-                                <?php if($category) { ?>
-                                    <p class="category"><?php echo $category[0]->name; ?></p>
-                                <?php } ?>
                                 <h2><?php the_title(); ?></h2>
                                 <p><?php echo get_excerpt_theme(get_the_excerpt()); ?></p>
                             </a>

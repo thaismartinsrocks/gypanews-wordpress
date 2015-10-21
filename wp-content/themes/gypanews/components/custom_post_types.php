@@ -15,7 +15,7 @@ function add_custom_post_types() {
             'public' => true,
             'menu_position' => 2,
             'has_archive' => true,
-            'supports' => array( 'title', 'editor', 'thumbnail', 'excerpt')
+            'supports' => array( 'title', 'editor', 'thumbnail', 'excerpt', 'author')
         )
     );
 
@@ -116,6 +116,20 @@ function add_custom_post_types() {
         )
     );
 
+    register_post_type( 'slide',
+        array(
+            'labels' => array(
+                'name' => __( 'Destaques da Página Inicial' ),
+                'singular_name' => __( 'Destaque' )
+            ),
+            'public' => true,
+            'menu_position' => 10,
+            'has_archive' => true,
+            'supports' => array( 'title' )
+        )
+    );
+
+    add_theme_support('post-thumbnails');
     add_theme_support('post-thumbnails');
 }
 
