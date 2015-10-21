@@ -11,17 +11,39 @@
             </div>
         </div>
     </div>
-    <div class="ads">
+    <div class="ads margintop">
+        <?php
+            $args = array(
+                'posts_per_page'   => 5,
+                'offset'           => 0,
+                'post_status'      => 'publish',
+                'post_type'        => 'anuncios',
+                'meta_query'       => array(
+                    array(
+                        'key' => 'local',
+                        'value' => 'others_aside'
+                    )
+                ),
+                'meta_key'         => 'order_exibition',
+                'orderby'          => 'meta_value_num',
+                'order'            => 'DESC',
+            );
+
+            query_posts($args);
+        ?>
         <ul>
-            <?php for($i = 1; $i < 5; $i++){ ?>
-                <li>
-                    <div class="ad">
-                        <a href="#" target="_blank">
-                            <img src="http://placehold.it/320x100?text=Anuncio+<?php echo $i ?>" alt="Anuncie Aqui" title="Anuncie Aqui">
-                        </a>
-                    </div>
-                </li>
-            <?php } ?>
+            <?php if ( have_posts() ) : ?>
+                <?php while (have_posts()) : the_post(); ?>
+                    <?php $image = get_field('image'); ?>
+                    <li>
+                        <div class="ad">
+                            <a href="<?php the_field('url'); ?>" target="_blank">
+                                <img src="<?php echo $image['url']; ?>" alt="<?php the_title(); ?>" title="<?php the_title(); ?>">
+                            </a>
+                        </div>
+                    </li>
+                <?php endwhile; ?>
+            <?php endif; ?>
         </ul>
     </div>
     <div class="news hidden-xs">
@@ -42,22 +64,26 @@
                 global $wp_query;
                 $args['author'] = $wp_query->queried_object->ID;
                 $args['post_type'] = get_all_custom_posts();
-            } else if(is_single() || is_archive()) {
-                $args['post_type'] = get_post_type($posts->ID);
+            } else if((is_single() || is_archive()) && $posts[0]->post_type != 'guia' && $posts[0]->post_type != 'social') {
+                $args['post_type'] = $posts[0]->post_type;
             } else {
-                $args['post_type'] = get_query_var('post_type');
+                $args['post_type'] = get_all_custom_posts();
             }
             query_posts($args);
         ?>
         <?php if ( have_posts() ) : ?>
             <?php while (have_posts()) : the_post(); ?>
                 <article class="col-xs-12">
-                    <div class="image col-xs-2">
-                        <a href="<?php the_permalink(); ?>">
-                            <img src="http://placehold.it/100x100" alt="<?php the_title() ?>" title="<?php the_title() ?>">
-                        </a>
-                    </div>
-                    <div class="content col-xs-10">
+
+                    <?php  if(has_post_thumbnail()) { ?>
+                        <div class="image small col-xs-4">
+                            <a href="<?php the_permalink(); ?>">
+                                <?php the_post_thumbnail(); ?>
+                            </a>
+                        </div>
+                    <?php } ?>
+
+                    <div class="content <?php echo has_post_thumbnail() ? 'col-xs-8' : 'col-xs-12'; ?>">
                         <div class="col-sm-12 hidden-xs">
                             <?php $category = get_the_category() ?>
                             <p class="small">
@@ -96,6 +122,7 @@
                     'title_li'           => __( '' ),
                     'show_option_none'   => __( '' ),
                     'taxonomy'           => 'category',
+                    'depth' => 1,
                 );
 
                 wp_list_categories($args);

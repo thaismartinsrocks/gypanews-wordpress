@@ -6,10 +6,31 @@ $(document).ready(function() {
         init:  function() {
             this.slides();
             this.mobile();
+            this.newsletter();
         },
         slides: function() {
             $('.featured').specialSlider();
             $('.slide').specialSlider({animation: 'fade'});
+        },
+        newsletter: function() {
+            $(document).on('click touchstart', '.btn-newsletter', function() {
+
+               var email = $('#news-email').val();
+                if(!Main.isEmpty(email) && Main.isValidEmail(email)) {
+
+                    var data = {'action': 'add_newsletter', 'email': email };
+                    $.post(ajaxurl, data, function(response) {
+                        if(response > 0) {
+                            alert('Seu email foi cadastrado com sucesso!');
+                        } else {
+                            alert('Erro ao cadastrar seu email. Por favor, tente novamente.');
+                        }
+
+                    });
+                }
+
+                return false;
+            });
         },
         mobile: function () {
 
@@ -80,6 +101,28 @@ $(document).ready(function() {
         isMobile: function() {
             var widthPage = $(window).width() + 17;
             return (widthPage < 768);
+        },
+        isValidEmail: function(email) {
+
+            var reg =  /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,10}$/;
+            var m;
+
+            if ((m = reg.exec(email)) !== null) {
+                if (m.index === reg.lastIndex) {
+                    reg.lastIndex++;
+                    return true;
+                }
+            } else {
+                return false;
+            }
+        },
+        isEmpty: function(input) {
+
+            if(typeof input == 'undefined' || input == '' || input == null || !input) {
+                return true;
+            }
+
+            return false;
         }
     };
 

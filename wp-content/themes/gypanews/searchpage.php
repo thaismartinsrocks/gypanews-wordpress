@@ -1,7 +1,4 @@
 <?php
-/*
-Template Name: Search Page
-*/
 
     global $wp_query;
     global $query_string;
@@ -18,3 +15,5 @@ Template Name: Search Page
 
     $total_results = $wp_query->found_posts;
 ?>
+
+<p>Aquiii</p>

@@ -22,14 +22,13 @@ function add_custom_post_types() {
     register_post_type( 'social',
         array(
             'labels' => array(
-                'name' => __( 'Social' ),
-                'singular_name' => __( 'Social' )
+                'name' => __( 'Agenda' ),
+                'singular_name' => __( 'Agenda' )
             ),
-            'taxonomies' => array('category'),
             'public' => true,
             'menu_position' => 3,
             'has_archive' => true,
-            'supports' => array( 'title', 'editor', 'author', 'excerpt', 'comments', 'thumbnail', 'post-thumbnails' )
+            'supports' => array( 'title', 'editor')
         )
     );
 
@@ -99,7 +98,7 @@ function add_custom_post_types() {
             'public' => true,
             'menu_position' => 8,
             'has_archive' => true,
-            'supports' => array( 'title', 'editor', 'author', 'thumbnail', 'excerpt', 'comments' )
+            'supports' => array( 'title' )
         )
     );
 
@@ -129,7 +128,19 @@ function add_custom_post_types() {
         )
     );
 
-    add_theme_support('post-thumbnails');
+    register_post_type( 'newsletter',
+        array(
+            'labels' => array(
+                'name' => __( 'Newsletter' ),
+                'singular_name' => __( 'Newsletter' )
+            ),
+            'public' => true,
+            'menu_position' => 10,
+            'has_archive' => true,
+            'supports' => array( 'title' )
+        )
+    );
+
     add_theme_support('post-thumbnails');
 }
 
@@ -148,7 +159,7 @@ function add_edition_taxonomy() {
         'new_item_name' => __( 'Nova Edição' )
     );
 
-    $where = array('reportagens', 'perfil', 'blog', 'guia', 'social', 'dicas', 'entrevistas');
+    $where = array('reportagens', 'perfil', 'blog', 'agenda', 'dicas', 'entrevistas');
 
     register_taxonomy('edicoes', $where,
         array(

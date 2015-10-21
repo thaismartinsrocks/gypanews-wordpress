@@ -16,22 +16,29 @@
 
 // ** Configurações do MySQL - Você pode pegar essas informações com o serviço de hospedagem ** //
 /** O nome do banco de dados do WordPress */
-define('DB_NAME', 'gypanews');
 
-/** Usuário do banco de dados MySQL */
-define('DB_USER', 'root');
-
-/** Senha do banco de dados MySQL */
-define('DB_PASSWORD', '');
-
-/** nome do host do MySQL */
-define('DB_HOST', 'localhost');
-
+if ($_SERVER['HTTP_HOST'] == 'localhost') {
+    define('DB_NAME', 'gypanews');
+    define('DB_USER', 'root');
+    define('DB_PASSWORD', '');
+    define('DB_HOST', 'localhost');
+} elseif ($_SERVER['HTTP_HOST'] == 'thaismartins.rocks') {
+    define('DB_NAME', 'thaismar_gypanews');
+    define('DB_USER', 'thaismar_gypanew');
+    define('DB_PASSWORD', 'gypa@2015');
+    define('DB_HOST', 'localhost');
+} else {
+    define('DB_NAME', '');
+    define('DB_USER', '');
+    define('DB_PASSWORD', '');
+    define('DB_HOST', '');
+}
 /** Conjunto de caracteres do banco de dados a ser usado na criação das tabelas. */
 define('DB_CHARSET', 'utf8mb4');
 
 /** O tipo de collate do banco de dados. Não altere isso se tiver dúvidas. */
 define('DB_COLLATE', '');
+
 
 /**#@+
  * Chaves únicas de autenticação e salts.

@@ -5,8 +5,8 @@
                     <p>Receba as novidades do GypaNews Online</p>
                 </div>
                 <div class="col-xs-12 col-sm-6">
-                    <input type="email" name="email" placeholder="SEU EMAIL">
-                    <button type="submit">CADASTRAR</button>
+                    <input type="email" name="email" id="news-email" placeholder="SEU EMAIL">
+                    <button type="submit" class="btn-newsletter">CADASTRAR</button>
                 </div>
             </div>
         </div>
@@ -16,18 +16,29 @@
                     <img src="<?php echo get_template_directory_uri(); ?>/images/logo-white.png" alt="GypaNews Online" title="GypaNews Online" class="pull-right">
                 </div>
                 <div class="col-xs-12 col-sm-10">
-                    <ul>
-                        <li><a href="#">Página Inicial</a></li>
-                        <li><a href="#">Quem Somos</a></li>
-                        <li><a href="#">Perfil</a></li>
-                        <li><a href="#">Social</a></li>
-                        <li><a href="#">Dicas</a></li>
-                        <li><a href="#">Entrevistas</a></li>
-                        <li><a href="#">Reportagens</a></li>
-                        <li><a href="#">Blog</a></li>
-                        <li><a href="#">Guia</a></li>
-                        <li><a href="#">Expediente</a></li>
-                    </ul>
+                    <?php
+
+                    $custom_posts = get_custom_posts_menu();
+                    $defaults = array(
+                        'menu'            => 'menu_bottom',
+                        'container'       => '',
+                        'container_class' => '',
+                        'container_id'    => '',
+                        'menu_class'      => 'menu',
+                        'menu_id'         => '',
+                        'echo'            => true,
+                        'fallback_cb'     => 'wp_page_menu_theme',
+                        'before'          => '',
+                        'after'           => '',
+                        'link_before'     => '',
+                        'link_after'      => '',
+                        'items_wrap'      => '<ul id="%1$s" class="%2$s">%3$s ' . $custom_posts . '</ul>',
+                        'depth'           => 0,
+                        'walker'          => ''
+                    );
+
+                    wp_page_menu_theme($defaults)
+                    ?>
                 </div>
             </div>
         </div>
@@ -40,7 +51,10 @@
     </div>
 
     <script src="<?php echo get_template_directory_uri(); ?>/bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="<?php echo get_template_directory_uri(); ?>/bower_components/lightbox2/dist/js/lightbox.min.js"></script>
     <script src="<?php echo get_template_directory_uri(); ?>/js/slide.js"></script>
     <script src="<?php echo get_template_directory_uri(); ?>/js/main.js"></script>
+    <script src="<?php echo get_template_directory_uri(); ?>/js/social.js"></script>
+
 </body>
 </html>

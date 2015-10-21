@@ -25,13 +25,24 @@
         <?php if ( have_posts() ) : ?>
             <?php while ( have_posts() ) : the_post(); ?>
 
-                <?php $category = get_the_category(); ?>
-                <?php if($category && $lastCategory != $category[0]->name) { ?>
+                <?php
+                    $category = get_the_category();
+                    $childCategory = false;
+
+                    if(!empty($category[0]->category_parent)) {
+                        $childCategory = $category;
+                        $category = get_category($category[0]->category_parent);
+                    } else {
+                        $category = $category[0];
+                    }
+
+                ?>
+                <?php if($category && $lastCategory != $category->slug) { ?>
                     <div class="category-box col-xs-12">
                         <?php
                             $imageArgs = array(
                                 'size' =>  'full',
-                                'term_id' => $category[0]->term_id
+                                'term_id' => $category->term_id
                             );
 
                             $image = category_image_src( $imageArgs, false);
@@ -39,24 +50,28 @@
 
                         <?php if($image) { ?>
                             <div class="image">
-                                <img src="<?php echo $image ?>" alt="<?php echo $category[0]->name; ?>" title="<?php echo $category[0]->name; ?>">
-                                <p><?php echo $category[0]->name; ?></p>
+                                <img src="<?php echo $image ?>" alt="<?php echo $category->name; ?>" title="<?php echo $category->name; ?>">
+                                <p><?php echo $category->name; ?></p>
                             </div>
                         <?php } ?>
 
-                        <p><?php echo $category[0]->description; ?></p>
-                        <?php $lastCategory = $category[0]->name; ?>
+                        <p><?php echo $category->description; ?></p>
+                        <?php $lastCategory = $category->slug; ?>
                     </div>
                 <?php } ?>
 
                 <article class="col-xs-12">
-                    <div class="image col-xs-2">
-                        <a href="<?php the_permalink() ?>">
-                            <img src="http://placehold.it/100x100" alt="Noticia" title="Noticia">
-                            <p><?php echo get_edition() ?></p>
-                        </a>
-                    </div>
-                    <div class="content col-xs-10">
+
+                    <?php  if(has_post_thumbnail()) { ?>
+                        <div class="image col-xs-4">
+                            <a href="<?php the_permalink() ?>">
+                                <?php the_post_thumbnail(); ?>
+                                <p><?php echo get_edition() ?></p>
+                            </a>
+                        </div>
+                    <?php } ?>
+
+                    <div class="content <?php echo has_post_thumbnail() ? 'col-xs-8' : 'col-xs-12'; ?>">
                         <div class="col-sm-6 hidden-xs">
                             <p class="small"><?php the_time('d/m/Y') ?> - Por  <?php the_author_posts_link() ?></p>
                         </div>
@@ -70,6 +85,9 @@
                         <div class="col-xs-12">
 
                             <a href="<?php the_permalink() ?>">
+                                <?php if($childCategory) { ?>
+                                    <p class="category"><?php echo $childCategory[0]->name; ?></p>
+                                <?php } ?>
                                 <h2><?php the_title(); ?></h2>
                                 <p><?php echo get_excerpt_theme(get_the_excerpt()); ?></p>
                             </a>

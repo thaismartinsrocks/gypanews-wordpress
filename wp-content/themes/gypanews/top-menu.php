@@ -28,7 +28,7 @@
             <?php if ( have_posts() ) : ?>
                 <?php while (have_posts()) : the_post(); ?>
                     <?php $image = get_field('image'); ?>
-                    <a href="<?php the_field('url'); ?>" target="_blank">
+                    <a href="http://<?php str_replace('http://', '', the_field('url')); ?>" target="_blank">
                         <img src="<?php echo $image['url']; ?>" alt="<?php the_title(); ?>" title="<?php the_title(); ?>">
                     </a>
                 <?php endwhile; ?>
@@ -97,7 +97,7 @@
                 <?php foreach($recent_posts as $post){ ?>
                     <li>
                         <a href="<?php echo get_permalink($post->ID) ?>">
-                            <?php the_time('d/m/Y') ?> - <?php echo $post->post_title; ?>
+                            <?php the_time('d/m/Y') ?> - <?php echo get_excerpt_theme($post->post_title, 80); ?>
                         </a>
                     </li>
                 <?php } ?>

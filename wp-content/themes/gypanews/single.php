@@ -30,11 +30,36 @@
                 </div>
             <?php } ?>
 
+            <?php
+                $photos = false;
+
+                for($i = 1; $i < 5; $i++) {
+                    $photo = get_field('slide_' . $i);
+                    if($photo)
+                        $photos[] = $photo['url'];
+                }
+            ?>
+
+            <?php if($photos) { ?>
+                <div class="photos col-xs-12">
+                    <ul>
+
+                        <?php foreach($photos as $photo) { ?>
+                            <li>
+                                <a href="<?php echo $photo ?>"  data-lightbox="article">
+                                    <img src="<?php echo $photo ?>" alt="<?php the_title() ?>" title="<?php the_title() ?>">
+                                </a>
+                            </li>
+                        <?php } ?>
+                    </ul>
+                </div>
+            <?php } ?>
+
             <div class="content col-xs-12">
                 <ul class="share">
-                    <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                    <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                    <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                    <li><a href="javascript:social.share.facebook()"><i class="fa fa-facebook"></i></a></li>
+                    <li><a href="javascript:social.share.twitter('<?php the_title() ?>')"><i class="fa fa-twitter"></i></a></li>
+                    <li><a href="javascript:social.share.google()"><i class="fa fa-google-plus"></i></a></li>
                     <li><a href="#comments"><i class="fa fa-comments"></i></a></li>
                 </ul>
                 <div class="text">

@@ -8,6 +8,22 @@
   @media #{$xsmall-max}
     padding: 0
 
+  h2
+    font:
+      weight: 700
+      size: 1.6em
+    margin:
+      top: 30px
+      left: 5px
+    color: $color-primary
+
+  .title
+    margin:
+      bottom: 25px
+
+    p
+      line-height: 1.6em
+
   article
     padding:
       top: 5px
@@ -29,7 +45,7 @@
       background-color: $color-gray-soft
 
     &.first
-      min-height: 446px
+      min-height: 300px
 
       @media #{$xsmall-max}
         min-height: 100%
@@ -56,11 +72,48 @@
         @media #{$xsmall-max}
           display: none
 
-      img
+      a
         width: 100%
+        overflow: hidden
+        display: block
+        max-height: 160px
+
+        img
+          height: 100%
+          width: 100%
+
+      &.small
+        a
+          max-height: 80px
 
     .content
       padding: 0 5px
+
+      &.agenda
+        margin: 15px 0
+
+        p
+          color: $color-dark
+          line-height: 1.2em
+          margin-bottom: 10px
+
+          &.month
+            font:
+              size: 2em
+              weight: 700
+            color: $color-primary
+
+        .day
+          font:
+            size: 4em
+            weight: 700
+          color: $color-primary
+          float: left
+          margin:
+            right: 10px
+            bottom: 10px
+
+
 
       .small
         padding: 5px 0
@@ -80,6 +133,7 @@
         p
           color: $color-dark
           line-height: 1.2em
+          margin-bottom: 10px
 
           &.category
             font:
@@ -90,6 +144,21 @@
 
       .resume
         padding: 0
+
+  .guia
+    margin:
+      top: 10px
+      bottom: 0
+
+    &:hover
+      background: transparent
+
+    p
+      line-height: 1.4em
+      strong
+        font:
+          size: 1.2em
+          weight: 700
 
   .buttons
     margin: 10px 0

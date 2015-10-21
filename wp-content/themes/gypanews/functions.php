@@ -2,6 +2,7 @@
 
 include("components/custom_post_types.php");
 include("components/profile.php");
+include("components/newsletter.php");
 
 add_filter('pre_get_posts', 'query_post_type');
 add_filter( 'excerpt_length', 'get_excerpt_theme', 999 );
@@ -24,7 +25,7 @@ function remove_menus(){
 
 function get_custom_posts_menu (){
 
-    $customs = get_all_custom_posts();
+    $customs = get_all_custom_posts(true);
     $custom_posts = '';
 
     if($customs) {
@@ -41,13 +42,15 @@ function get_custom_posts_menu (){
 function get_all_custom_posts($isMenu = false) {
 
     $customs = get_post_types('', 'names');
-    $removed = array('post', 'page', 'attachment', 'revision', 'acf', 'anuncios', 'slide', 'newsletter');
+    $removed = array('post', 'page', 'attachment', 'revision', 'acf', 'anuncios', 'slide', 'newsletter', 'nav_menu_item');
 
-    if(!$isMenu)
+    if(!$isMenu) {
         $removed[] = 'nav_menu_item';
+        $removed[] = 'guia';
+        $removed[] = 'social';
+    }
 
     $custom_posts = array();
-
     if($customs) {
         foreach($customs as $custom) {
             if(!in_array($custom, $removed))
@@ -124,6 +127,7 @@ function query_post_type($query) {
             $post_type = $post_type;
         else {
             $post_type = get_all_custom_posts();
+            $post_type[] = 'guia';
         }
 
         $query->set('post_type', $post_type);
@@ -132,6 +136,7 @@ function query_post_type($query) {
 }
 
 function wp_page_menu_theme($defaults) {
+
     global $wp_query;
     $wp_query->set('post_type', get_all_custom_posts(true));
     wp_nav_menu( $defaults );

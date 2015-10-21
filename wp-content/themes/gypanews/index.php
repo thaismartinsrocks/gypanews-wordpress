@@ -5,12 +5,12 @@
             <ul>
                 <?php
                     $args = array(
-                        'posts_per_page'   => 4,
+                        'posts_per_page'   => 10,
                         'offset'           => 0,
                         'post_status'      => 'publish',
                         'post_type'        => 'slide',
                         'orderby'          => 'date',
-                        'order'            => 'DESC',
+                        'order'            => 'ASC',
                     );
 
                     query_posts($args);
@@ -34,7 +34,9 @@
                                     <?php if($edition) { ?>
                                         <div class="edition"><?php echo $edition[0]->name; ?></div>
                                     <?php } ?>
-                                    <h1><?php echo $post->post_title; ?></h1>
+                                    <h1>
+                                        <?php echo $post->post_title; ?>
+                                    </h1>
                                 </div>
                             </a>
                         </li>
@@ -47,10 +49,7 @@
             </div>
         </div>
         <div class="search col-xs-12 col-sm-4">
-            <form method="post">
-                <input type="text" name="s" placeholder="Pesquisar por...">
-                <button type="submit"><i class="fa fa-search"></i></button>
-            </form>
+            <?php get_search_form(); ?>
         </div>
         <div class="facebook-box col-xs-12 col-sm-4">
             <div class="fb-page" data-href="https://www.facebook.com/gypanews" data-small-header="true" data-width="380px" data-height="245px" data-hide-cover="true" data-show-facepile="true" data-show-posts="true">
@@ -89,7 +88,7 @@
                     <article class="<?php echo $count == 1 ? 'first' : '' ?> col-xs-12 col-sm-6">
 
                         <?php  if(has_post_thumbnail()) { ?>
-                            <div class="image col-xs-12">
+                            <div class="image col-xs-12 <?php echo $count == 1 ? '' : 'col-sm-4' ?>">
                                 <a href="<?php the_permalink(); ?>">
                                     <?php the_post_thumbnail(); ?>
                                     <p><?php echo get_edition(); ?></p>
@@ -123,7 +122,6 @@
                                 <div class="resume col-xs-12">
                                     <a href="<?php the_permalink(); ?>">
                                         <h2><?php the_title(); ?></h2>
-                                        <p><?php echo get_excerpt_theme(get_the_excerpt()); ?></p>
                                     </a>
                                 </div>
                                 <div class="small col-xs-12">
@@ -173,7 +171,7 @@
                         <?php $image = get_field('image'); ?>
                         <li>
                             <div class="ad col-xs-12 col-sm-12">
-                                <a href="<?php the_field('url'); ?>" target="_blank">
+                                <a href="http://<?php str_replace('http://', '', the_field('url')); ?>" target="_blank">
                                     <img src="<?php echo $image['url']; ?>" alt="<?php the_title(); ?>" title="<?php the_title(); ?>">
                                 </a>
                             </div>
@@ -202,8 +200,8 @@
                     )
                 ),
                 'meta_key'         => 'order_exibition',
-                'orderby'          => 'meta_value_num',
-                'order'            => 'DESC',
+                'orderby'          => 'meta_value',
+                'order'            => 'ASC',
             );
 
             query_posts($args);
@@ -214,7 +212,7 @@
                     <?php $image = get_field('image'); ?>
                     <li>
                         <div class="ad col-xs-12 col-sm-4">
-                            <a href="<?php the_field('url'); ?>" target="_blank">
+                            <a href="http://<?php str_replace('http://', '', the_field('url')); ?>" target="_blank">
                                 <img src="<?php echo $image['url']; ?>" alt="<?php the_title(); ?>" title="<?php the_title(); ?>">
                             </a>
                         </div>
@@ -255,7 +253,7 @@
                         <?php $image = get_field('image'); ?>
                         <li>
                             <div class="ad ad-border col-xs-12 col-sm-4">
-                                <a href="<?php the_field('url'); ?>" target="_blank">
+                                <a href="http://<?php str_replace('http://', '', the_field('url')); ?>" target="_blank">
                                     <img src="<?php echo $image['url']; ?>" alt="<?php the_title(); ?>" title="<?php the_title(); ?>">
                                 </a>
                             </div>
@@ -287,16 +285,16 @@
                 <?php while (have_posts()) : the_post(); ?>
                     <article class="row">
                         <?php  if(has_post_thumbnail()) { ?>
-                            <div class="col-sm-4 hidden-xs">
+                            <div class="image col-sm-4 hidden-xs">
                                 <a href="<?php the_permalink(); ?>">
                                     <?php the_post_thumbnail(); ?>
                                 </a>
                             </div>
                         <?php } ?>
 
-                        <div class="col-xs-12 col-sm-8">
+                        <div class="col-xs-12 <?php echo has_post_thumbnail() ? 'col-sm-8' : 'col-sm-12'; ?>">
                             <h2><?php the_title(); ?></h2>
-                            <p><?php echo get_excerpt_theme(get_the_excerpt()); ?></p>
+                            <p><?php echo get_excerpt_theme(get_the_excerpt(), 70); ?></p>
                         </div>
                     </article>
                 <?php endwhile; ?>
