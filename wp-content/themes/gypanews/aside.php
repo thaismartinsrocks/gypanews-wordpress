@@ -37,7 +37,7 @@
                     <?php $image = get_field('image'); ?>
                     <li>
                         <div class="ad">
-                            <a href="<?php the_field('url'); ?>" target="_blank">
+                            <a href="http://<?php echo str_replace('http://', '', get_field('url')); ?>" target="_blank">
                                 <img src="<?php echo $image['url']; ?>" alt="<?php the_title(); ?>" title="<?php the_title(); ?>">
                             </a>
                         </div>

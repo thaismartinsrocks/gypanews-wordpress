@@ -6,6 +6,7 @@ include("components/newsletter.php");
 
 add_filter('pre_get_posts', 'query_post_type');
 add_filter( 'excerpt_length', 'get_excerpt_theme', 999 );
+add_filter('template_include', 'template_chooser');
 add_action( 'admin_menu', 'remove_menus' );
 
 function get_excerpt_theme($string, $length = 130) {
@@ -128,6 +129,8 @@ function query_post_type($query) {
 
         $query->set('post_type', $post_type);
         return $query;
+    } else if(is_search()){
+        $query->set('post_type', get_all_custom_posts(true));
     }
 
     remove_filter('pre_get_posts', 'query_post_type');
@@ -139,4 +142,13 @@ function wp_page_menu_theme($defaults) {
     $wp_query->set('post_type', get_all_custom_posts(true));
     wp_nav_menu( $defaults );
     $wp_query->set('post_type', get_all_custom_posts());
+}
+
+function template_chooser($template) {
+
+    if(is_search()) {
+        return locate_template('searchpage.php');
+    }
+
+    return $template;
 }

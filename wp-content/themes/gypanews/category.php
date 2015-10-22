@@ -17,14 +17,24 @@
                             <p>Telefone: <?php the_field('phone') ?></p>
                         </div>
                     </article>
+                <?php } elseif ($post_type->name == 'social') { ?>
+                    <article class="col-xs-12">
+                        <div class="content agenda <?php echo has_post_thumbnail() ? 'col-xs-8' : 'col-xs-12'; ?>">
+                            <span class="day"><?php the_field('day') ?></span>
+                            <p class="month"><?php the_field('month') ?> de <?php the_field('ano') ?></p>
+                            <?php echo get_excerpt_theme(get_content()) ?>
+                        </div>
+                    </article>
                 <?php } else { ?>
                     <article class="col-xs-12">
-                        <div class="image col-xs-2">
-                            <a href="<?php the_permalink() ?>">
-                                <img src="http://placehold.it/100x100" alt="Noticia" title="Noticia">
-                                <p><?php echo get_edition() ?></p>
-                            </a>
-                        </div>
+                        <<?php  if(has_post_thumbnail()) { ?>
+                            <div class="image col-xs-4">
+                                <a href="<?php the_permalink() ?>">
+                                    <?php the_post_thumbnail(); ?>
+                                    <p><?php echo get_edition() ?></p>
+                                </a>
+                            </div>
+                        <?php } ?>
                         <div class="content col-xs-10">
                             <div class="col-sm-6 hidden-xs">
                                 <p class="small"><?php the_time('d/m/Y') ?> - Por  <?php the_author_posts_link() ?></p>

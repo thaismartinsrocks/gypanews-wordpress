@@ -28,7 +28,7 @@
             <?php if ( have_posts() ) : ?>
                 <?php while (have_posts()) : the_post(); ?>
                     <?php $image = get_field('image'); ?>
-                    <a href="http://<?php str_replace('http://', '', the_field('url')); ?>" target="_blank">
+                    <a href="http://<?php echo str_replace('http://', '', get_field('url')); ?>" target="_blank">
                         <img src="<?php echo $image['url']; ?>" alt="<?php the_title(); ?>" title="<?php the_title(); ?>">
                     </a>
                 <?php endwhile; ?>

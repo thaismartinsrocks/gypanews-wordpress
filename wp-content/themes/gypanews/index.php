@@ -88,7 +88,7 @@
                     <article class="<?php echo $count == 1 ? 'first' : '' ?> col-xs-12 col-sm-6">
 
                         <?php  if(has_post_thumbnail()) { ?>
-                            <div class="image col-xs-12 <?php echo $count == 1 ? '' : 'col-sm-4' ?>">
+                            <div class="image <?php echo ($count > 1) ? 'small' : '' ; ?> col-xs-12 <?php echo $count == 1 ? '' : 'col-sm-4' ?>">
                                 <a href="<?php the_permalink(); ?>">
                                     <?php the_post_thumbnail(); ?>
                                     <p><?php echo get_edition(); ?></p>
@@ -121,7 +121,7 @@
                                 </div>
                                 <div class="resume col-xs-12">
                                     <a href="<?php the_permalink(); ?>">
-                                        <h2><?php the_title(); ?></h2>
+                                        <h2><?php echo get_excerpt_theme(get_the_title(), 35); ?></h2>
                                     </a>
                                 </div>
                                 <div class="small col-xs-12">
@@ -171,7 +171,7 @@
                         <?php $image = get_field('image'); ?>
                         <li>
                             <div class="ad col-xs-12 col-sm-12">
-                                <a href="http://<?php str_replace('http://', '', the_field('url')); ?>" target="_blank">
+                                <a href="http://<?php echo str_replace('http://', '', get_field('url')); ?>" target="_blank">
                                     <img src="<?php echo $image['url']; ?>" alt="<?php the_title(); ?>" title="<?php the_title(); ?>">
                                 </a>
                             </div>
@@ -212,7 +212,7 @@
                     <?php $image = get_field('image'); ?>
                     <li>
                         <div class="ad col-xs-12 col-sm-4">
-                            <a href="http://<?php str_replace('http://', '', the_field('url')); ?>" target="_blank">
+                            <a href="http://<?php echo str_replace('http://', '', get_field('url')); ?>" target="_blank">
                                 <img src="<?php echo $image['url']; ?>" alt="<?php the_title(); ?>" title="<?php the_title(); ?>">
                             </a>
                         </div>
@@ -253,7 +253,7 @@
                         <?php $image = get_field('image'); ?>
                         <li>
                             <div class="ad ad-border col-xs-12 col-sm-4">
-                                <a href="http://<?php str_replace('http://', '', the_field('url')); ?>" target="_blank">
+                                <a href="http://<?php echo str_replace('http://', '', get_field('url')); ?>" target="_blank">
                                     <img src="<?php echo $image['url']; ?>" alt="<?php the_title(); ?>" title="<?php the_title(); ?>">
                                 </a>
                             </div>
